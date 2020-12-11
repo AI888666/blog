@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+ <script src="/static/js/jquery.min.js"></script>
+<body>
+    <button id="btn">打赏</button>
+    <script>
+        //模拟数据 向后端传订单id
+        var topic_id = '996688'
+	    var post_data = {"topic_id": topic_id}
+        $(function(){
+            $("#btn").click(function () {
+                $.ajax({
+                    url:"http://127.0.0.1:8000/payment/url",
+                    type:"post",
+		            contentType: "application/json",
+                    dataType:"json",
+		            data: JSON.stringify(post_data),
+                    success:function (data) {
+                        window.location.href = data.pay_url;
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

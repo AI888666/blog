@@ -1,0 +1,11 @@
+django中使用celery步骤
+
+1，创建celery配置文件
+    项目同名目录下创建celery.py
+
+2，应用下创建tasks.py集中定义对应worker函数
+
+3，视图函数充当生产者，推送具体worker函数
+
+4，项目目录下启动worker
+    celery -A 项目同名目录worker -l info

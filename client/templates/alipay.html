@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章打赏</title>
+<script src="/static/js/jquery.min.js"></script>
+<body>
+    <button id="btn">打赏</button>
+    <script>
+        token = window.localStorage.getItem('dnblog_token');
+        username = window.localStorage.getItem('dnblog_user');
+        alipay_list = window.localStorage.getItem('alipay_list');
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+        //当前访问的博客博主
+        var blog_username = arrUrl[1].split('/')[1];
+        function rand(min,max) {
+             return Math.floor(Math.random()*(max-min))+min;
+        }
+        //模拟数据 向后端传订单id
+        var random_id = rand(1000,9999)
+        var money = rand(5, 200)
+        var topic_id = "2019111821315602" + random_id.toString()
+	    var post_data = {"topic_id": topic_id, "money": money, "username": username}
+        $(function(){
+            $("#btn").click(function (){
+                $.ajax({
+                    url:"http://127.0.0.1:8000/v1/alipays/payment/url",
+                    type:"post",
+		            contentType: "application/json",
+                    dataType:"json",
+		            data: JSON.stringify(post_data),
+                    success:function (data) {
+                        window.location = data.pay_url;
+                        // window.location.href = '/' + blog_username + '/detail';
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
