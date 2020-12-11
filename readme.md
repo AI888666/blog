@@ -2,5 +2,5 @@
 
 ```
 Django前后端分离项目－－博客blog项目
-python + django + Redis + MySQL
+python + django + Redis + MySQL flask
 ```
